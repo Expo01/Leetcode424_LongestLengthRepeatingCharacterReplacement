@@ -17,13 +17,15 @@ class Solution {
         int result = 0;
 
         while(end<s.length()){
-            charMap[s.charAt(end)-'A']++;
-            maxFreq = Math.max(maxFreq, charMap[s.charAt(end)-'A']);
-            if((end-start+1-maxFreq)>k){
-                charMap[s.charAt(start++)-'A']--;
+            charMap[s.charAt(end)-'A']++; // no sorting, just increment ASCII index val
+            maxFreq = Math.max(maxFreq, charMap[s.charAt(end)-'A']); // max freq updated as needed instead of sort
+            if((end-start+1-maxFreq)>k){ // if length-maxFreq is > k then insufficient letter chnages to makee that length
+                charMap[s.charAt(start++)-'A']--; // java short for decrementing val at start since taking that letter out of
+                // the window then increment start
             }
-            result = Math.max(result, (end-start+1));
-            end++;
+            result = Math.max(result, (end-start+1)); // max length updated as needed
+            end++; // note that window can only expand in size. if L barrier incremented, R is always inc too so no change
+            // but end and increement withot start to expand window
         }
         return result;
     }
